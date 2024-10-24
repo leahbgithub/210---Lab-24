@@ -1,16 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set> // include set instead of list
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string names[], string colors[]);
-void display_trip(list<Goat> &trip);
+//change std::list to std::set
+// function prototypes
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string names[], string colors[]);
+void display_trip(set<Goat> &trip);
 int main_menu();
 
 int main() {
@@ -29,7 +31,9 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
     
-    list<Goat> trip; // Manager for Goat
+    // change the list of goats to set of goats to manage trip
+    set<Goat> trip; // Manager for Goat
+    
     bool running = true;
     
     // The main loop
@@ -70,32 +74,38 @@ int main_menu() {
 }
 
 // Third Task: Add a goat to the list
-void add_goat(list<Goat> &trip, string names[], string colors[]) {
+// Change list to set
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
     int rand_name_idx = rand() % SZ_NAMES;
     int rand_color_idx = rand() % SZ_COLORS;
     int rand_age = rand() % MAX_AGE + 1;
     
     Goat new_goat(names[rand_name_idx], rand_age, colors[rand_color_idx]);
-    trip.push_back(new_goat); // add new goat to the trip
+    trip.insert(new_goat); // insert new goat into set (sorted by age automatically)
     cout << "Added: " << new_goat.description() << endl;
     
 }
 
 // Third Task: Now we delete a goat from the list
-void delete_goat(list<Goat> &trip) {
+// change from list to set
+void delete_goat(set<Goat> &trip) {
     if (trip.empty()) {
         cout << "No goats can be deleted" << endl;
         return;
     }
     
+    // asks user to select which goat to delete
     int index = select_goat(trip);
     if (index == -1) {
         cout << "Invalid Selection." << endl;
         return;
     }
     
+    // find iterator for selected goat within the set
     auto it = trip.begin();
     advance(it, index);
+    
+    // output the goat that is to be deleted and remove it from the set
     cout << "Deleting: " << it->description() << endl;
     trip.erase(it);
 }
