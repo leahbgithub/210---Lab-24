@@ -1,5 +1,5 @@
 // Goat.h
-
+// no changes need to be made to Goat.h when changing to std::set
 #ifndef GOAT_H
 #define GOAT_H
 #include <iostream>

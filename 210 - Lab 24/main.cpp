@@ -80,6 +80,7 @@ void add_goat(set<Goat> &trip, string names[], string colors[]) {
     int rand_color_idx = rand() % SZ_COLORS;
     int rand_age = rand() % MAX_AGE + 1;
     
+    // create new goat object with random values
     Goat new_goat(names[rand_name_idx], rand_age, colors[rand_color_idx]);
     trip.insert(new_goat); // insert new goat into set (sorted by age automatically)
     cout << "Added: " << new_goat.description() << endl;
@@ -111,12 +112,14 @@ void delete_goat(set<Goat> &trip) {
 }
 
 // Third Task: Display whole list of goats
-void display_trip(list<Goat> &trip) {
+// change list to set again
+void display_trip(set<Goat> &trip) {
     if (trip.empty()) {
         cout << "No goats in the trip" << endl;
         return;
     }
     
+    // displays each goat in set as well as the position
     int i = 1;
     for (const auto &goat : trip) {
         cout << "[" << i++ << "] " << goat.description() << "\n";
@@ -124,9 +127,12 @@ void display_trip(list<Goat> &trip) {
 }
 
 // Task three: Select goat from list
-int select_goat(list<Goat> trip) {
+// switch from list to set
+// selects goat by index
+int select_goat(set<Goat> trip) {
     if (trip.empty()) return -1;
     
+    // displays goats in set with the corresponding numbers
     int i = 1;
     for (const auto &goat : trip) {
         cout << "[" << i++ << "] " << goat.description() << endl;
@@ -134,8 +140,9 @@ int select_goat(list<Goat> trip) {
     
     int choice;
     cout << "Select a ghost by the number: ";
-    cin >> choice;
+    cin >> choice; // will get user's choice for which goat they should select
     
+    // validate choice to make sure it is within the range
     if (choice < 1 || choice > trip.size()) return -1;
     return choice - 1;
 }
