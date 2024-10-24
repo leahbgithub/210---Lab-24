@@ -16,15 +16,16 @@ void display_trip(set<Goat> &trip);
 int main_menu();
 
 int main() {
-    srand(time(0));
+    srand(time(0)); // will seed random number generator
 
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
-    string names[SZ_NAMES];
+    string names[SZ_NAMES]; // array to store names
     int i = 0;
-    while (fin >> names[i++]);
-    fin.close();
+    while (fin >> names[i++]); // read names from file
+    fin.close(); // close file after reading
     
+    // read and populate array for colors from colors.txt
     ifstream fin1("colors.txt");
     string colors[SZ_COLORS];
     i = 0;
@@ -34,7 +35,7 @@ int main() {
     // change the list of goats to set of goats to manage trip
     set<Goat> trip; // Manager for Goat
     
-    bool running = true;
+    bool running = true; // control variable for the main loop
     
     // The main loop
     while (running) {
